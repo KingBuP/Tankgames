@@ -1,0 +1,14 @@
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  overflow: hidden;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  #app {
+    width: 900px;
+    height: 600px;
+    background-color: aliceblue;
+  }
+}
