@@ -1,10 +1,24 @@
 import "./initcss.css"; //初始化
 import "./global.scss"; //全局
 import config from "./config";
+import straw from "./canvas/straw"; //画布
+import { promise } from "./server/image";
+import wall from "./canvas/wall";
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
 app.style.width = config.canvas.width + "px";
 app.style.height = config.canvas.height + "px";
+
+//先加载贴图后加载画布
+async function bootstrap() {
+  await Promise.all(promise); //加载贴图
+
+  straw.render(); //渲染
+  wall.render();
+}
+
+void bootstrap();
+
 /*
 //黑板案例
 import "./style.css";
@@ -270,11 +284,11 @@ instance.setBgColor().setLineColor().clear().draw().erase().short();
 
 // 常用手段
 //图片缩略图 画布和图片大小一致
-function scale(img: HTMLImageElement, el: HTMLCanvasElement) {
-  // img.naturalWidth; //原始图片的尺寸
-  //取最小是差距大的宽或高
-  return Math.min(el.width / img.naturalWidth, el.height / img.naturalHeight); //原始图片的尺寸
-}
+// function scale(img: HTMLImageElement, el: HTMLCanvasElement) {
+//   // img.naturalWidth; //原始图片的尺寸
+//   //取最小是差距大的宽或高
+//   return Math.min(el.width / img.naturalWidth, el.height / img.naturalHeight); //原始图片的尺寸
+// }
 
 // 画布随机色块
 // app.fillStyle = "#000";

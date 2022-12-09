@@ -9,6 +9,10 @@ body {
   #app {
     width: 900px;
     height: 600px;
+    position: relative;
     background-color: aliceblue;
+    canvas {
+      position: absolute;
+    }
   }
 }
