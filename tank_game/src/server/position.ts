@@ -20,7 +20,8 @@ class position {
             (c) => c.x == position.x && c.y == position.y
           );
           if (!exists) {
-            collection.push(this.position(type));
+            position.type = type;
+            collection.push(position);
             break;
           }
         }
@@ -29,7 +30,7 @@ class position {
   }
 
   //返还随机位置
-  protected position(type: string = "") {
+  public position(type: string = "") {
     //!!!!!!!!!!!
     return {
       x:

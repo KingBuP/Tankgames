@@ -1,11 +1,11 @@
 import { images } from "../server/image";
 import modelAbstract from "./modelAbstract";
 
-// 草地对象
+// 水对象
 export default class extends modelAbstract implements IModel {
-  name: string = "straw";
+  name: string = "water";
   image(): HTMLImageElement {
-    return images.get("straw")!;
+    return images.get("water")!;
   }
   render(): void {
     super.draw(this.image());

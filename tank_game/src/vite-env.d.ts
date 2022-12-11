@@ -5,5 +5,14 @@ interface ModelConstructior {
 }
 
 interface IModel {
+  x: number;
+  y: number;
   render(): void;
+  image(): HTMLImageElement;
+}
+
+interface ICanvas {
+  num(): number;
+  model(): ModelConstructior;
+  nameType(): string;
 }

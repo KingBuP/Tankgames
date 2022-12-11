@@ -1,16 +1,16 @@
 import config from "../config";
 import CanvasAbstract from "./canvas";
-import model from "../model/straw";
-// 草地
-class straw extends CanvasAbstract implements ICanvas {
+import model from "../model/steel";
+// 钢墙
+class steel extends CanvasAbstract implements ICanvas {
   model(): ModelConstructior {
     return model;
   }
   num(): number {
-    return config.straw.num;
+    return config.steel.num;
   }
   nameType(): string {
-    return config.straw.name;
+    return config.steel.name;
   }
   render(): void {
     super.createModels(); //调用父级方法
@@ -18,4 +18,4 @@ class straw extends CanvasAbstract implements ICanvas {
   }
 }
 
-export default new straw();
+export default new steel();
