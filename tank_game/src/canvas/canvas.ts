@@ -4,7 +4,7 @@ import position from "../server/position";
 
 // 画布
 export default abstract class CanvasAbstract {
-  protected models: IModel[] = []; //物体对象实例
+  public models: IModel[] = []; //物体对象实例
   abstract render(): void; //子类替工
   abstract model(): ModelConstructior;
   abstract num(): number;
@@ -12,7 +12,7 @@ export default abstract class CanvasAbstract {
   constructor(
     protected app = document.querySelector("#app") as HTMLDivElement,
     protected el = document.createElement("canvas"),
-    protected canvas = el.getContext("2d")!
+    public ctx = el.getContext("2d")!
   ) {
     this.createCanvas();
   }
@@ -28,13 +28,14 @@ export default abstract class CanvasAbstract {
   protected createModels() {
     position.getCollection(this.num(), this.nameType()).forEach((pos) => {
       //判断类型
-      position.collection.forEach((c) => {
-        if (c.type == this.nameType()) {
-          //创建
-          const model = this.model();
-          const instance = new model(this.canvas, pos.x, pos.y);
-          this.models.push(instance);
-        }
+      position.collection.forEach(() => {
+        //多此一举的判断
+        // if (c.type == this.nameType()) {
+        //创建
+        const model = this.model();
+        const instance = new model(pos.x, pos.y);
+        this.models.push(instance);
+        // }
       });
     });
   }

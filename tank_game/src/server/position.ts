@@ -4,9 +4,9 @@ type positionType = { x: number; y: number; type?: string };
 //坐标服务
 class position {
   //批量获取唯一坐标  位置集合  collection集合
-  public collection = [] as positionType[];
+  public collection: positionType[] = [];
   public getCollection(num: number, type: string = "") {
-    let collection = this.collection;
+    let collection: positionType[] = [];
     //创建数组并填充""  并循环
     Array(num)
       .fill("")
@@ -16,12 +16,13 @@ class position {
         while (true) {
           const position = this.position();
           //exists-存在
-          const exists = collection.some(
+          const exists = this.collection.some(
             (c) => c.x == position.x && c.y == position.y
           );
           if (!exists) {
             position.type = type;
             collection.push(position);
+            this.collection.push(position);
             break;
           }
         }

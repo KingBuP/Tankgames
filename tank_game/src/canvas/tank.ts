@@ -25,7 +25,7 @@ class tank extends CanvasAbstract implements ICanvas {
   //坦克特殊重写渲染模型
   protected renderModel() {
     //擦除
-    this.canvas.clearRect(0, 0, config.canvas.width, config.canvas.height);
+    this.ctx.clearRect(0, 0, config.canvas.width, config.canvas.height);
     super.renderModel();
     // this.models.forEach((model) => {
     //   //
@@ -49,7 +49,7 @@ class tank extends CanvasAbstract implements ICanvas {
       const pos = position.position(this.nameType());
       //创建
       const model = this.model();
-      const instance = new model(this.canvas, pos.x, 0);
+      const instance = new model(pos.x, 0);
       this.models.push(instance);
     }
   }
