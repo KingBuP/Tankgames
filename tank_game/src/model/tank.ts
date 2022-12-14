@@ -3,10 +3,8 @@ import { images, mapKey } from "../server/image";
 import modelAbstract from "./modelAbstract";
 import _ from "lodash";
 import config from "../config";
-import water from "../canvas/water";
-import wall from "../canvas/wall";
-import steel from "../canvas/steel";
 import tank from "../canvas/tank";
+import utils from "../utils";
 
 // 坦克对象
 export default class extends modelAbstract implements IModel {
@@ -20,11 +18,17 @@ export default class extends modelAbstract implements IModel {
     //   this.move();
     // }, 50);
     this.move(); //移动
-    //增加向下的概率
-    if (_.random(1000) == 1) this.direction = directionEnum.left;
-    if (_.random(1000) == 1) this.direction = directionEnum.top;
-    if (_.random(1000) == 1) this.direction = directionEnum.right;
-    if (_.random(300) == 1) this.direction = directionEnum.botton;
+    //增加向下的概率 和移动时随机改变方向
+    switch (this.direction) {
+      case directionEnum.top || directionEnum.botton:
+        if (_.random(750) == 1) this.direction = directionEnum.left;
+        if (_.random(750) == 1) this.direction = directionEnum.right;
+        break;
+      case directionEnum.left || directionEnum.right:
+        if (_.random(750) == 1) this.direction = directionEnum.top;
+        if (_.random(400) == 1) this.direction = directionEnum.botton;
+        break;
+    }
   }
 
   protected move(): void {
@@ -56,7 +60,7 @@ export default class extends modelAbstract implements IModel {
           x -= config.tank_timeout2;
           break;
       }
-      if (this.isTouch(x, y) === true) {
+      if (utils.isModelTouch(x, y) || utils.isCanvasTouch(x, y)) {
         this.randerDirection();
       } else {
         this.x = x;
@@ -69,27 +73,27 @@ export default class extends modelAbstract implements IModel {
   }
 
   //是否是触碰
-  protected isTouch(x: number, y: number) {
-    //运动阈值 范围
-    if (
-      x < 0 ||
-      x + this.width > config.canvas.width ||
-      y < 0 ||
-      y + this.height > config.canvas.height
-    ) {
-      return true;
-    }
-    const models = [...water.models, ...steel.models, ...wall.models];
-    //物体间碰撞
-    return models.some((mode) => {
-      const state =
-        x + this.width <= mode.x ||
-        x >= mode.x + mode.width ||
-        y + this.height <= mode.y ||
-        y >= mode.y + mode.height;
-      return !state;
-    });
-  }
+  // protected isTouch(x: number, y: number) {
+  //   //运动阈值 范围
+  //   if (
+  //     x < 0 ||
+  //     x + this.width > config.canvas.width ||
+  //     y < 0 ||
+  //     y + this.height > config.canvas.height
+  //   ) {
+  //     return true;
+  //   }
+  //   const models = [...water.models, ...steel.models, ...wall.models];
+  //   //物体间碰撞
+  //   return models.some((mode) => {
+  //     const state =
+  //       x + this.width <= mode.x ||
+  //       x >= mode.x + mode.width ||
+  //       y + this.height <= mode.y ||
+  //       y >= mode.y + mode.height;
+  //     return !state;
+  //   });
+  // }
 
   //图片
   image(): HTMLImageElement {

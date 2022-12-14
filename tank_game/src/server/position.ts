@@ -5,7 +5,7 @@ type positionType = { x: number; y: number; type?: string };
 class position {
   //批量获取唯一坐标  位置集合  collection集合
   public collection: positionType[] = [];
-  public getCollection(num: number, type: string = "") {
+  public getCollection(num: number, type: string = ""): positionType[] {
     let collection: positionType[] = [];
     //创建数组并填充""  并循环
     Array(num)

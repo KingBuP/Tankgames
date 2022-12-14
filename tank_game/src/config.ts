@@ -2,6 +2,7 @@ import strawUrl from "./static/images/straw/straw.png";
 import wallUrl from "./static/images/wall/wall.gif";
 import steelUrl from "./static/images/wall/steels.gif";
 import waterUrl from "./static/images/water/water.gif";
+import bulletUrl from "./static/images/bullet/bullet.jpg";
 
 import tankBUrl from "./static/images/tank/bottom.gif";
 import tankTUrl from "./static/images/tank/top.gif";
@@ -22,6 +23,7 @@ export default {
   tank_timeout: 16.667,
   //每次渲染坦克移动距离
   tank_timeout2: 0.5,
+  bulletSise: 5, //子弹大小
   // 草地
   straw: {
     num: 120,
@@ -45,8 +47,13 @@ export default {
 
   //坦克
   tank: {
-    num: 20,
+    num: 5,
     name: "tank",
+  },
+  //子弹
+  bullet: {
+    num: 0,
+    name: "bullet",
   },
   images: {
     straw: strawUrl, //草地
@@ -58,5 +65,6 @@ export default {
     tankTopUrl: tankTUrl,
     tankLeftUrl: tankLUrl,
     tankRightUrl: tankRUrl,
+    bullet: bulletUrl, //子弹
   },
 };

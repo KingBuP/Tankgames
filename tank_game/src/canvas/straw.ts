@@ -14,7 +14,7 @@ class straw extends CanvasAbstract implements ICanvas {
   }
   render(): void {
     super.createModels(); //调用父级方法
-    super.renderModel();
+    super.renderModels();
   }
 }
 

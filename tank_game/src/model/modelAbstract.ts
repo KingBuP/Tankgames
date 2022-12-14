@@ -7,7 +7,7 @@ export default abstract class modelAbstract {
 
   abstract name: string; //名字
   abstract image(): HTMLImageElement; //图片
-  protected direction: directionEnum = directionEnum.botton; //方向
+  public direction: directionEnum = directionEnum.botton; //方向
   public width = config.model.width;
   public height = config.model.height;
 
@@ -32,5 +32,36 @@ export default abstract class modelAbstract {
       config.model.width,
       config.model.height
     );
+  }
+
+  //卸载模型
+  public destroy() {
+    //画布里移出模型
+    this.canvas.removeModel(this);
+    //渲染一下
+    this.canvas.renderModels();
+  }
+
+  //爆炸动画
+  protected blast(model: IModel) {
+    //0~100
+    Array(...Array(100).keys()).reduce((promise, index) => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const img = new Image();
+          img.src = `/src/static/images/blasts/blast${index}.gif`;
+          img.onload = () => {
+            this.canvas.ctx.drawImage(
+              img,
+              model.x,
+              model.y,
+              model.width,
+              model.height
+            );
+            resolve(promise);
+          };
+        }, 200);
+      });
+    }, Promise.resolve());
   }
 }

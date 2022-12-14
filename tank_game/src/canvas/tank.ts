@@ -23,10 +23,10 @@ class tank extends CanvasAbstract implements ICanvas {
   }
 
   //坦克特殊重写渲染模型
-  protected renderModel() {
+  public renderModel() {
     //擦除
     this.ctx.clearRect(0, 0, config.canvas.width, config.canvas.height);
-    super.renderModel();
+    super.renderModels();
     // this.models.forEach((model) => {
     //   //
     //   model.render();
