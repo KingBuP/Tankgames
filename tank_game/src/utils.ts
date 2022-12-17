@@ -1,3 +1,4 @@
+import boss from "./canvas/boss";
 import steel from "./canvas/steel";
 import wall from "./canvas/wall";
 import config from "./config";
@@ -29,7 +30,7 @@ export default new (class utils {
     y: number,
     width: number = config.model.width,
     height: number = config.model.height,
-    models = [...steel.models, ...wall.models]
+    models = [...steel.models, ...wall.models, ...boss.models]
   ): IModel | undefined {
     //物体间碰撞
     return models.find((mode) => {

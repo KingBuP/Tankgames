@@ -1,20 +1,19 @@
 import config from "../config";
 import CanvasAbstract from "./canvas";
-import model from "../model/tank";
-import position from "../server/position";
-// 坦克
-class tank extends CanvasAbstract implements ICanvas {
+import model from "../model/player";
+// 玩家坦克
+class player extends CanvasAbstract implements ICanvas {
   model(): ModelConstructior {
     return model;
   }
   num(): number {
-    return config.tank.num;
+    return config.player.num;
   }
   nameType(): string {
-    return config.tank.name;
+    return config.player.name;
   }
   render(): void {
-    this.createModels(); //调用父级方法
+    this.createModels(); //
     this.renderModel(); //画布渲染整类游戏对象
     this.el.style.zIndex = "1";
     //60帧渲染坦克画布
@@ -45,15 +44,18 @@ class tank extends CanvasAbstract implements ICanvas {
 
   //绘制模型  --覆盖父级方法
   protected createModels() {
-    for (let i = 0; i < config.tank.num; i++) {
-      //位置可重复
-      const pos = position.position(this.nameType());
-      //创建
-      const model = this.model();
-      const instance = new model(pos.x, 0);
+    [
+      {
+        x: config.canvas.width / 2 - config.model.width * 5,
+        y: config.canvas.height - config.model.height * 2,
+        type: "player",
+      },
+    ].forEach((pos) => {
+      const model = this.model() as ModelConstructior;
+      const instance = new model(pos.x, pos.y);
       this.models.push(instance);
-    }
+    });
   }
 }
 
-export default new tank();
+export default new player();

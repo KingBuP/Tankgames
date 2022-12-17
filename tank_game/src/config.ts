@@ -3,12 +3,18 @@ import wallUrl from "./static/images/wall/wall.gif";
 import steelUrl from "./static/images/wall/steels.gif";
 import waterUrl from "./static/images/water/water.gif";
 import bulletUrl from "./static/images/bullet/bullet.jpg";
+import bossUrl from "./static/images/boss/boss.png";
 
+//敌方坦克
 import tankBUrl from "./static/images/tank/bottom.gif";
 import tankTUrl from "./static/images/tank/top.gif";
 import tankLUrl from "./static/images/tank/left.gif";
 import tankRUrl from "./static/images/tank/right.gif";
-
+//玩家
+import playerBUrl from "./static/images/player/bottom.gif";
+import playerTUrl from "./static/images/player/top.gif";
+import playerLUrl from "./static/images/player/left.gif";
+import playerRUrl from "./static/images/player/right.gif";
 //配置管理
 export default {
   canvas: {
@@ -55,6 +61,13 @@ export default {
     num: 0,
     name: "bullet",
   },
+  // 基地
+  boss: {
+    num: 0,
+    name: "boss",
+  },
+  //玩家
+  player: { num: 1, name: "player" },
   images: {
     straw: strawUrl, //草地
     wall: wallUrl, //墙
@@ -66,5 +79,10 @@ export default {
     tankLeftUrl: tankLUrl,
     tankRightUrl: tankRUrl,
     bullet: bulletUrl, //子弹
+    boss: bossUrl, //基地/家园
+    playerBottonUrl: playerBUrl,
+    playerTopUrl: playerTUrl,
+    playerLeftUrl: playerLUrl,
+    playerRightUrl: playerRUrl,
   },
 };

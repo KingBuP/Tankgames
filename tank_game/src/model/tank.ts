@@ -60,8 +60,14 @@ export default class extends modelAbstract implements IModel {
           x -= config.tank_timeout2;
           break;
       }
-      if (utils.isModelTouch(x, y) || utils.isCanvasTouch(x, y)) {
+      const touchModel = utils.isModelTouch(x, y)!;
+      if (utils.isCanvasTouch(x, y)) {
         this.randerDirection();
+      } else if (touchModel) {
+        this.randerDirection();
+        if (touchModel.name == "player" || touchModel.name == "boss")
+          touchModel.destroy();
+        this.blast(touchModel);
       } else {
         this.x = x;
         this.y = y;

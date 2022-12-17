@@ -2,6 +2,7 @@ import config from "../config";
 import CanvasAbstract from "./canvas";
 import model from "../model/bullet";
 import tank from "./tank";
+import player from "./player";
 // 子弹画布
 class bullet extends CanvasAbstract implements ICanvas {
   model(): BulletModelConstructior {
@@ -31,6 +32,11 @@ class bullet extends CanvasAbstract implements ICanvas {
         this.models.push(new model(tank));
       }
     });
+  }
+
+  //添加玩家子弹 新增方法
+  addPlayerBullet() {
+    this.models.push(new model(player.models[0]));
   }
 }
 

@@ -39,7 +39,7 @@ class position {
         config.model.width,
       y:
         Math.floor(
-          Math.random() * (config.canvas.height / config.model.height - 4)
+          Math.random() * (config.canvas.height / config.model.height - 5)
         ) *
           config.model.height +
         config.model.height * 2,

@@ -13,6 +13,12 @@ body {
     position: relative;
     // background-color: #333;
     background-color: #000;
+    background-image: url("./static//images//cover/cover.png");
+    background-position: center;
+    background-size: cover;
+    cursor: pointer;
+    box-sizing: content-box;
+    // border: solid 10px #000;
     canvas {
       position: absolute;
     }

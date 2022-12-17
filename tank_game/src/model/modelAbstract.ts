@@ -7,7 +7,7 @@ export default abstract class modelAbstract {
 
   abstract name: string; //名字
   abstract image(): HTMLImageElement; //图片
-  public direction: directionEnum = directionEnum.botton; //方向
+  public direction: directionEnum = directionEnum.top; //方向
   public width = config.model.width;
   public height = config.model.height;
 
@@ -45,7 +45,9 @@ export default abstract class modelAbstract {
   //爆炸动画
   protected blast(model: IModel) {
     //0~100
-    Array(...Array(100).keys()).reduce((promise, index) => {
+    Array(...Array(8).keys()).reduce((promise, index) => {
+      //当每个promise完成后继续下一个promise
+      //执行过快的话可以加上定时器
       return new Promise((resolve) => {
         setTimeout(() => {
           const img = new Image();
@@ -60,7 +62,7 @@ export default abstract class modelAbstract {
             );
             resolve(promise);
           };
-        }, 200);
+        }, 120);
       });
     }, Promise.resolve());
   }
