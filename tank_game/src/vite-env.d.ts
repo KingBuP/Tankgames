@@ -32,4 +32,5 @@ interface ICanvas {
   ctx: CanvasRenderingContext2D;
   removeModel(model: IModel): void;
   renderModels(): void;
+  stop?(): void;
 }

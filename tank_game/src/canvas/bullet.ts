@@ -3,8 +3,10 @@ import CanvasAbstract from "./canvas";
 import model from "../model/bullet";
 import tank from "./tank";
 import player from "./player";
+import audio from "../server/audio";
 // 子弹画布
 class bullet extends CanvasAbstract implements ICanvas {
+  intervalId = 0; //定时器
   model(): BulletModelConstructior {
     return model;
   }
@@ -17,7 +19,7 @@ class bullet extends CanvasAbstract implements ICanvas {
   render(): void {
     // super.createModels(); //调用父级方法
     // super.renderModel();
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.createBullet();
       super.renderModels();
     }, 30);
@@ -30,6 +32,7 @@ class bullet extends CanvasAbstract implements ICanvas {
       const isExists = this.models.some((m) => m.tank == tank);
       if (!isExists) {
         this.models.push(new model(tank));
+        // audio.fire()
       }
     });
   }
@@ -37,6 +40,12 @@ class bullet extends CanvasAbstract implements ICanvas {
   //添加玩家子弹 新增方法
   addPlayerBullet() {
     this.models.push(new model(player.models[0]));
+    audio.fire(); //子弹发射声音
+  }
+
+  //
+  stop() {
+    clearInterval(this.intervalId);
   }
 }
 

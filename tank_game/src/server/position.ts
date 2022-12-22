@@ -32,7 +32,7 @@ class position {
 
   //返还随机位置
   public position(type: string = "") {
-    //!!!!!!!!!!!
+    //!!!!!!!!!!! 上下留空-坦克初始位置
     return {
       x:
         Math.floor((Math.random() * config.canvas.width) / config.model.width) *

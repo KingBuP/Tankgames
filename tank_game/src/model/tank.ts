@@ -10,6 +10,7 @@ import utils from "../utils";
 export default class extends modelAbstract implements IModel {
   public canvas: ICanvas = tank;
   name: string = "tank"; //名字
+
   //渲染单个实例
   render(): void {
     // 渲染交给画布

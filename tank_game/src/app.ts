@@ -10,6 +10,7 @@ import tank from "./canvas/tank";
 import bullet from "./canvas/bullet";
 import boss from "./canvas/boss";
 import player from "./canvas/player";
+import audio from "./server/audio";
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
 app.style.width = config.canvas.width + "px";
@@ -17,18 +18,62 @@ app.style.height = config.canvas.height + "px";
 
 //先加载贴图后加载画布
 export default {
-  isStart: false,
+  isStart: false, //游戏开始只执行一次
+  state: 9, //输赢状态 1表示赢 0表示输
+  interval: 0, //定时器
   //游戏启动 初始化
   bootstrap() {
-    app.addEventListener("click", this.gameStart.bind(this));
+    //事件函数只执行一次
+    app.addEventListener("click", async () => {
+      await this.gameStart();
+      //每隔一段时间检测游戏是否结束
+      this.interval = setInterval(() => {
+        //坦克数量为0 赢
+        if (tank.models.length == 0) this.state = 1;
+        //玩家和基地数量为0 输
+        if (player.models.length == 0 || boss.models.length == 0)
+          this.state = 0;
+        if (this.state != 9) this.gameEnd();
+      });
+    });
   },
   //游戏结束
-  gameEnd() {},
+  gameEnd() {
+    //游戏结束清除定时器
+    clearInterval(this.interval);
+    tank.stop();
+    bullet.stop();
+
+    //调用文字
+    this.text();
+  },
+  //游戏结束文字
+  text() {
+    const el = document.createElement("canvas");
+    el.width = config.canvas.width;
+    el.height = config.canvas.height;
+    el.style.zIndex = "10";
+    const ctx = el.getContext("2d")!;
+    ctx.fillStyle = "blue";
+    ctx.font = "80px CascadiaMono";
+    ctx.textBaseline = "middle";
+    ctx.textAlign = "center";
+    ctx.fillText(
+      this.state == 1 ? "恭喜您，胜利了！" : "很遗憾，失败了！",
+      config.canvas.width / 2,
+      config.canvas.height / 2
+    );
+    app.appendChild(el);
+  },
+
   //游戏开始
   async gameStart() {
     if (this.isStart === true) return;
     this.isStart = true;
     app.style.backgroundImage = "none";
+
+    //声音
+    audio.start();
 
     await Promise.all(promise); //加载贴图
     straw.render(); //渲染

@@ -4,6 +4,7 @@ import model from "../model/tank";
 import position from "../server/position";
 // 坦克
 class tank extends CanvasAbstract implements ICanvas {
+  intervalId = 0; //定时器
   model(): ModelConstructior {
     return model;
   }
@@ -18,7 +19,7 @@ class tank extends CanvasAbstract implements ICanvas {
     this.renderModel(); //画布渲染整类游戏对象
     this.el.style.zIndex = "1";
     //60帧渲染坦克画布
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.renderModel();
     }, config.tank_timeout);
   }
@@ -53,6 +54,11 @@ class tank extends CanvasAbstract implements ICanvas {
       const instance = new model(pos.x, 0);
       this.models.push(instance);
     }
+  }
+
+  //
+  stop() {
+    clearInterval(this.intervalId);
   }
 }
 

@@ -1,5 +1,6 @@
 import config from "../config";
 import { directionEnum } from "../enum/directionEnum";
+import audio from "../server/audio";
 
 export default abstract class modelAbstract {
   abstract render(): void; //渲染函数
@@ -44,6 +45,7 @@ export default abstract class modelAbstract {
 
   //爆炸动画
   protected blast(model: IModel) {
+    audio.blast(); //爆炸声音·
     //0~100
     Array(...Array(8).keys()).reduce((promise, index) => {
       //当每个promise完成后继续下一个promise
